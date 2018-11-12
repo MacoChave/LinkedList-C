@@ -32,7 +32,7 @@ List * newList ()
     return list;
 }
 
-Node * newNode (Data * data)
+Node * newNode (void * data)
 {
     Node * node = (Node *)malloc(sizeof(Node));
     node->data = data;
@@ -42,7 +42,7 @@ Node * newNode (Data * data)
     return node;
 }
 
-void push_front (List ** list, Data * data)
+void push_front (List ** list, void * data)
 {
     if ((*list)->size > 0)
     {
@@ -56,7 +56,7 @@ void push_front (List ** list, Data * data)
     (*list)->size++;
 }
 
-void push_back (List ** list, Data * data)
+void push_back (List ** list, void * data)
 {
     if ((*list)->size > 0)
     {
@@ -70,20 +70,23 @@ void push_back (List ** list, Data * data)
     (*list)->size++;   
 }
 
-void insert (List ** list, Data * data)
+/**
+ * Definir función int (*compare[TIPO])(void *, void*)
+*/
+void insert (List ** list, void * data, int (*compare)(void *, void *))
 {
     if ((*list)->size > 0)
     {
-        if ((*list)->first->data->info > data->info)
+        if (compare((*list)->first->data, data) > 0)
             push_front(list, data);
-        else if ((*list)->first->data->info < data->info)
+        else if (compare((*list)->first->data, data) < 0)
             push_back(list, data);
         else
         {
             Node * current = (*list)->first->next;
             while (current != NULL)
             {
-                if (current->data->info > data->info)
+                if (compare(current->data, data) > 0)
                 {
                     Node * node = newNode(data);
                     current->preview->next = node;
@@ -104,12 +107,12 @@ void insert (List ** list, Data * data)
         push_front(list, data);
 }
 
-void printList (List * list)
+void printList (List * list, void (*fptr)(void *))
 {
     Node * current = list->first;
     while (current != NULL)
     {
-        printData(current->data);
+        (*fptr)(current->data);
         current = current->next;
     }
     printf("\n");

@@ -19,9 +19,18 @@ Data * newData (int info)
     return data;
 }
 
-void printData (Data * data)
+void printData (void * data)
 {
-    printf(" Number: %d ", data->info);
+    printf(" Number: %d ", ((Data *)data)->info);
+}
+
+int compareData (void * d1, void * d2)
+{
+    if (((Data *)d1)->info > ((Data *)d2)->info)
+        return 1;
+    if (((Data *)d1)->info < ((Data *)d2)->info)
+        return -1;
+    return 0;
 }
 
 #endif // DATA_H_INCLUDED

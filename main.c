@@ -5,23 +5,23 @@ int main()
 {
     List * list = newList();
 
-    insert(&list, newData(5));
-    printList(list);
+    insert(&list, newData(5), compareData);
+    printList(list, printData);
 
-    insert(&list, newData(10));
-    printList(list);
+    insert(&list, newData(10), compareData);
+    printList(list, printData);
 
-    insert(&list, newData(1));
-    printList(list);
+    insert(&list, newData(1), compareData);
+    printList(list, printData);
 
-    insert(&list, newData(3));
-    printList(list);
+    insert(&list, newData(3), compareData);
+    printList(list, printData);
 
-    insert(&list, newData(20));
-    printList(list);
+    insert(&list, newData(20), compareData);
+    printList(list, printData);
 
-    insert(&list, newData(25));
-    printList(list);
+    insert(&list, newData(25), compareData);
+    printList(list, printData);
 
     return 0;
 }
